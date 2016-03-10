@@ -17,6 +17,7 @@
 		3E70FACC1C911C2C00542074 /* QRCodeDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FACB1C911C2C00542074 /* QRCodeDemoTests.m */; };
 		3E70FAD71C911C2D00542074 /* QRCodeDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAD61C911C2D00542074 /* QRCodeDemoUITests.m */; };
 		3E70FAE91C9124BD00542074 /* AVDeviceQRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAE81C9124BD00542074 /* AVDeviceQRController.m */; };
+		3E70FAEE1C9168AE00542074 /* QRScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAED1C9168AE00542074 /* QRScanView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		3E70FAD81C911C2D00542074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E70FAE71C9124BD00542074 /* AVDeviceQRController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVDeviceQRController.h; sourceTree = "<group>"; };
 		3E70FAE81C9124BD00542074 /* AVDeviceQRController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVDeviceQRController.m; sourceTree = "<group>"; };
+		3E70FAEC1C9168AE00542074 /* QRScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScanView.h; sourceTree = "<group>"; };
+		3E70FAED1C9168AE00542074 /* QRScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScanView.m; sourceTree = "<group>"; };
 		9A9682434C189AA867FF56C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +159,8 @@
 		3E70FAE41C91247D00542074 /* AVDeviceQR */ = {
 			isa = PBXGroup;
 			children = (
+				3E70FAEC1C9168AE00542074 /* QRScanView.h */,
+				3E70FAED1C9168AE00542074 /* QRScanView.m */,
 				3E70FAE71C9124BD00542074 /* AVDeviceQRController.h */,
 				3E70FAE81C9124BD00542074 /* AVDeviceQRController.m */,
 			);
@@ -375,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E70FAB91C911C2C00542074 /* ViewController.m in Sources */,
+				3E70FAEE1C9168AE00542074 /* QRScanView.m in Sources */,
 				3E70FAB61C911C2C00542074 /* AppDelegate.m in Sources */,
 				3E70FAB31C911C2C00542074 /* main.m in Sources */,
 				3E70FAE91C9124BD00542074 /* AVDeviceQRController.m in Sources */,
