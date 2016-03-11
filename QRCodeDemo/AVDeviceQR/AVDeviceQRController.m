@@ -41,6 +41,7 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     self.scanRect = CGRectMake(60.0f, 100.0f, 200.0f, 200.0f);
+    self.view.backgroundColor = [UIColor blackColor];
 
 }
 
@@ -48,7 +49,6 @@
     [super viewWillAppear:animated];
     
     [self requestAuthCamera];
-    self.isQRCodeCaptured = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -112,7 +112,7 @@
                                                           object:nil
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock: ^(NSNotification *_Nonnull note) {
-                                                          weakSelf.captureMetadataOutput.rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:weakSelf.scanRect]; // 如果不设置，整个屏幕都可以扫
+//                                                          weakSelf.captureMetadataOutput.rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:weakSelf.scanRect]; // 如果不设置，整个屏幕都可以扫
                                                           //!!!!!!!!!! 与直接设置的区别 还未发现有啥区别
                                                       }];
        
@@ -130,14 +130,15 @@
         NSLog(@"err = %@",error);
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-          [self.previewLayer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
-        _captureConnect.videoScaleAndCropFactor = 1.5;
-
-           });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//          [self.previewLayer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
+//        _captureConnect.videoScaleAndCropFactor = 1.5;
+//
+//           });
 }
 
 - (void)startCapture{
+    self.isQRCodeCaptured = NO;
     [self.captureSession startRunning];
 }
 
@@ -150,6 +151,10 @@
     [self showAlertViewWithMessage:cameraTitle];
 }
 
+- (void)removeCapture{
+    [self stopCapture];
+    
+}
 
 #pragma mark - Private Methods
 
@@ -179,11 +184,15 @@
     if (_captureDevice == nil) {
         _captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         //更改这个设置的时候必须先锁定设备，修改完后再解锁，否则崩溃
-//        [_captureDevice lockForConfiguration:nil];
-//        //设置闪光灯为自动
-//        [_captureDevice setFlashMode:AVCaptureFlashModeAuto];
-//    
-//        [_captureDevice unlockForConfiguration];
+//        NSError *error;
+//        if (_captureDevice.isAutoFocusRangeRestrictionSupported)
+//        {
+//            if ([_captureDevice lockForConfiguration:&error])
+//            {
+//                [_captureDevice setAutoFocusRangeRestriction:AVCaptureAutoFocusRangeRestrictionNear];
+//                [_captureDevice unlockForConfiguration];
+//            }
+//        }
     }
     return _captureDevice;
 }
@@ -191,6 +200,8 @@
 -(AVCaptureSession *)captureSession{
     if (_captureSession == nil) {
         _captureSession = [[AVCaptureSession alloc] init];
+//        _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
+
         [_captureSession setSessionPreset:AVCaptureSessionPresetInputPriority];
     }
     return _captureSession;

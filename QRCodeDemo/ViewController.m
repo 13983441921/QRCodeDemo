@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "AVDeviceQRController.h"
+#import "ZXingQRController.h"
 
 @interface ViewController ()
 
@@ -56,7 +57,8 @@
         [self.navigationController pushViewController:avQR animated:YES];
     }
     else if (indexPath.row == 1){
-        
+        ZXingQRController *zxingQR = [[ZXingQRController alloc] init];
+        [self.navigationController pushViewController:zxingQR animated:YES];
     }
     else{
     }
