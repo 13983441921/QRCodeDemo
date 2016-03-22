@@ -8,8 +8,13 @@
 
 #import "ViewController.h"
 
-#import "AVDeviceQRController.h"
+//#import "AVDeviceQRController.h"
+
+#import "QRCodeReader.h"
+#import "QRCodeReaderViewController.h"
+
 #import "ZXingQRController.h"
+#import "ZBarQRContrller.h"
 
 @interface ViewController ()
 
@@ -53,14 +58,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        AVDeviceQRController *avQR = [[AVDeviceQRController alloc]init];
-        [self.navigationController pushViewController:avQR animated:YES];
+//        AVDeviceQRController *avQR = [[AVDeviceQRController alloc]init];
+        if ([QRCodeReader supportsMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]]) {
+            
+            QRCodeReaderViewController *reader = [QRCodeReaderViewController new];
+            [reader setCompletionWithBlock:^(NSString *resultAsString) {
+                NSLog(@"Completion with result: %@", resultAsString);
+            }];
+            
+            [self.navigationController pushViewController:reader animated:YES];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Reader not supported by the current device" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            
+            [alert show];
+        }
     }
     else if (indexPath.row == 1){
         ZXingQRController *zxingQR = [[ZXingQRController alloc] init];
         [self.navigationController pushViewController:zxingQR animated:YES];
     }
     else{
+        ZBarQRContrller *zbarQR = [[ZBarQRContrller alloc]init];
+        [self.navigationController pushViewController:zbarQR animated:YES];
     }
 
 }

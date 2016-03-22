@@ -88,53 +88,49 @@
 }
 
 - (void)configDeviceQR{
-    NSError *error;
-    AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.captureDevice error:&error];
-    if (error == nil) {
-        if ([self.captureSession canAddInput:deviceInput]) {
-            [self.captureSession  addInput:deviceInput];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSError *error;
+        AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:self.captureDevice error:&error];
+        if (error == nil) {
+            if ([self.captureSession canAddInput:deviceInput]) {
+                [self.captureSession  addInput:deviceInput];
+            }
+            
+            if ([self.captureSession canAddOutput:self.captureMetadataOutput]) {
+                // 这行代码要在设置 metadataObjectTypes 前
+                [self.captureSession addOutput:self.captureMetadataOutput];
+            }
+            self.captureMetadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+            //    self.captureOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
+            
+            _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
+            _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+            _previewLayer.frame = self.view.frame;
+            [self.view.layer insertSublayer:_previewLayer atIndex:0];
+            
+            __weak typeof(self) weakSelf = self;
+            [[NSNotificationCenter defaultCenter] addObserverForName:AVCaptureInputPortFormatDescriptionDidChangeNotification
+                                                              object:nil
+                                                               queue:[NSOperationQueue currentQueue]
+                                                          usingBlock: ^(NSNotification *_Nonnull note) {
+                                                              weakSelf.captureMetadataOutput.rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:weakSelf.scanRect]; // 如果不设置，整个屏幕都可以扫
+                                                              //!!!!!!!!!! 与直接设置的区别 还未发现有啥区别
+                                                          }];
+            
+            
+            AVCaptureStillImageOutput *img =  [self.captureSession.outputs objectAtIndex:0];
+            _captureConnect =[img connectionWithMediaType:AVMediaTypeVideo];
+            
+            QRScanView *scanView = [[QRScanView alloc] initWithScanRect:self.scanRect];
+            [self.view addSubview:scanView];
+            
+            [self startCapture];
+            
         }
-        
-        if ([self.captureSession canAddOutput:self.captureMetadataOutput]) {
-             // 这行代码要在设置 metadataObjectTypes 前
-            [self.captureSession addOutput:self.captureMetadataOutput];
+        else {
+            NSLog(@"err = %@",error);
         }
-        self.captureMetadataOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
-        //    self.captureOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
-
-        _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
-        _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        _previewLayer.frame = self.view.frame;
-        [self.view.layer insertSublayer:_previewLayer atIndex:0];
-        
-        __weak typeof(self) weakSelf = self;
-        [[NSNotificationCenter defaultCenter] addObserverForName:AVCaptureInputPortFormatDescriptionDidChangeNotification
-                                                          object:nil
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock: ^(NSNotification *_Nonnull note) {
-//                                                          weakSelf.captureMetadataOutput.rectOfInterest = [_previewLayer metadataOutputRectOfInterestForRect:weakSelf.scanRect]; // 如果不设置，整个屏幕都可以扫
-                                                          //!!!!!!!!!! 与直接设置的区别 还未发现有啥区别
-                                                      }];
-       
-
-        AVCaptureStillImageOutput *img =  [self.captureSession.outputs objectAtIndex:0];
-        _captureConnect =[img connectionWithMediaType:AVMediaTypeVideo];
-
-        QRScanView *scanView = [[QRScanView alloc] initWithScanRect:self.scanRect];
-        [self.view addSubview:scanView];
-        
-        [self startCapture];
-        
-    }
-    else {
-        NSLog(@"err = %@",error);
-    }
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//          [self.previewLayer setAffineTransform:CGAffineTransformMakeScale(1.5, 1.5)];
-//        _captureConnect.videoScaleAndCropFactor = 1.5;
-//
-//           });
+    });
 }
 
 - (void)startCapture{
@@ -168,7 +164,7 @@
 #pragma mark -
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     AVMetadataMachineReadableCodeObject *metadataObject = metadataObjects.firstObject;
-    if ([metadataObject.type isEqualToString:AVMetadataObjectTypeQRCode]&& !self.isQRCodeCaptured) {
+    if ([metadataObject.type isEqualToString:AVMetadataObjectTypeQRCode] && !self.isQRCodeCaptured) {
         self.isQRCodeCaptured = YES;
         [self stopCapture];
         [self showAlertViewWithMessage:metadataObject.stringValue];
@@ -202,6 +198,7 @@
         _captureSession = [[AVCaptureSession alloc] init];
 //        _captureSession.sessionPreset = AVCaptureSessionPresetHigh;
 
+        
         [_captureSession setSessionPreset:AVCaptureSessionPresetInputPriority];
     }
     return _captureSession;
