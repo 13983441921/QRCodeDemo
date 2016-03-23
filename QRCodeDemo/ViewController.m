@@ -91,7 +91,7 @@
     }
     else{
 //        ADWebviewController *zxingQR = [[ADWebviewController alloc] init];
-        TOWebViewController *qrweb = [[TOWebViewController alloc]initWithURLString:@"http://mp.weixin.qq.com/s?__biz=MjM5MjkwMjE3MQ==&mid=402966468&idx=1&sn=95205419dfe233b440382a867ff19696&scene=2&srcid=0322xf25lmMsHjAH8k3sV3Jc&from=timeline&isappinstalled=0#wechat_redirect"];
+        TOWebViewController *qrweb = [[TOWebViewController alloc]initWithURLString:@"https://mp.weixin.qq.com/s?__biz=MzAxNzI0NTQ4Nw==&mid=403200626&idx=1&sn=287682f40afaa5072d2bd0f76dc97746&scene=1&srcid=0223hbfL6h2ExWv5MrrYC5F8&key=710a5d99946419d9beb9e85995536ce622db30670d2a9ba22982078e8a1a3ae2b85619d1b2a79fa1ddd71f96a5891640&ascene=0&uin=MTgyNTM1NDc1&devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.11+build(15A284)&version=11020201&pass_ticket=Aad1DwoywVkSdAxWsfHh11kCyIn2wlYkQpQmdDbZBtA%3D"];
         qrweb.navigationButtonsHidden = YES;
         [self.navigationController pushViewController:qrweb animated:YES];
     }

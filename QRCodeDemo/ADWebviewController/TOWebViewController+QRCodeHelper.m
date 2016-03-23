@@ -9,6 +9,8 @@
 #import "TOWebViewController+QRCodeHelper.h"
 #import <objc/runtime.h>
 
+#import <ZXingObjC/ZXingObjC.h>
+
 //要注入的 js 代码
 static NSString* const kTouchJavaScriptString=
 @"document.ontouchstart=function(event){\
@@ -94,11 +96,35 @@ enum
         
         //用获取的图片 去识别二维码
         self.gesState = GESTURE_STATE_END;
-        
-        UIActionSheet* sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", nil];
+        UIActionSheet* sheet ;
+        if ([self isAvailableQRcodeIn:image]) {
+            sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机",@"识别二维码", nil];
+        }
+        else{
+            sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", nil];
+        }
         sheet.cancelButtonIndex = sheet.numberOfButtons - 1;
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
     }
+}
+
+- (BOOL)isAvailableQRcodeIn:(UIImage *)img{
+    UIImage *image = img;
+    ZXCGImageLuminanceSource *source = [[ZXCGImageLuminanceSource alloc] initWithCGImage:image.CGImage];
+    ZXHybridBinarizer *binarizer = [[ZXHybridBinarizer alloc] initWithSource: source];
+    ZXBinaryBitmap *bitmap = [[ZXBinaryBitmap alloc] initWithBinarizer:binarizer];
+    ZXDecodeHints *hints = [ZXDecodeHints hints];
+    
+    NSError *error = nil;
+    ZXQRCodeMultiReader * reader2 = [[ZXQRCodeMultiReader alloc]init];
+//    NSArray *rs = [reader2 decodeMultiple:bitmap error:&error];
+    NSArray *rs =[reader2 decodeMultiple:bitmap hints:hints error:&error];
+    NSLog(@" err = %@",error);
+    for (ZXResult *resul in rs) {
+        NSLog(@"识别出二维码的 结果 == %@",resul.text);
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark -
