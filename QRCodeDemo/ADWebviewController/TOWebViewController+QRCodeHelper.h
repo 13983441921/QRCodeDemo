@@ -9,12 +9,13 @@
 #import <TOWebViewController/TOWebViewController.h>
 #import "ADRuntimeClass.h"
 
-@interface TOWebViewController (QRCodeHelper)<UIWebViewDelegate>
+@interface TOWebViewController (QRCodeHelper)<UIWebViewDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, strong)NSTimer *timer;
 
 @property (nonatomic, assign)int gesState;
 
+// 获取 image URL 的js
 @property (nonatomic, strong)NSString *imgURL;
 
 @end

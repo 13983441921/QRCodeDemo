@@ -28,6 +28,8 @@ static NSString *const kGestrueState     = @"keyForGestrueState";
 static NSString *const kImageUrl         = @"keyForImageUrl";
 static NSString *const kLongGestureTimer = @"keyForLongGestureTimer";
 
+static const NSTimeInterval longGestureInterval = 1.0f;
+
 enum
 {
     GESTURE_STATE_NONE = 0,
@@ -53,7 +55,7 @@ enum
 + (void)towebviewHook{
     ADSwizzlingMethod([self class], @selector(webView:shouldStartLoadWithRequest:navigationType:), @selector(ad_webView:shouldStartLoadWithRequest:navigationType:));
     ADSwizzlingMethod([self class], @selector(webViewDidFinishLoad:), @selector(ad_webViewDidFinishLoad:));
-    ADSwizzlingMethod([self class], @selector(webViewDidStartLoad:), @selector(ad_webViewDidStartLoad:));
+//    ADSwizzlingMethod([self class], @selector(webViewDidStartLoad:), @selector(ad_webViewDidStartLoad:));
 }
 
 #pragma mark - seter and getter
@@ -83,12 +85,29 @@ enum
 
 #pragma mark - private Method
 - (void)handleLongTouch {
-    NSLog(@"====%@", self.imgURL);
+    
+    NSString *imageUrl = [self.webView stringByEvaluatingJavaScriptFromString:self.imgURL];
+    if (imageUrl && self.gesState == GESTURE_STATE_START) {
+        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+        UIImage* image = [UIImage imageWithData:data];
+        NSLog(@"下载完成====%@", imageUrl);
+        
+        //用获取的图片 去识别二维码
+        self.gesState = GESTURE_STATE_END;
+        
+        UIActionSheet* sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", nil];
+        sheet.cancelButtonIndex = sheet.numberOfButtons - 1;
+        [sheet showInView:[UIApplication sharedApplication].keyWindow];
+    }
 }
 
-
-
 #pragma mark -
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+}
+
+#pragma mark - swizing
 - (void)ad_webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     
 }
@@ -101,13 +120,8 @@ enum
                                    isEqualToString:@"myweb"]) {
         if([(NSString *)[components objectAtIndex:1] isEqualToString:@"touch"])
         {
-            //NSLog(@"you are touching!");
-            //NSTimeInterval delaytime = Delaytime;
             if ([(NSString *)[components objectAtIndex:2] isEqualToString:@"start"])
             {
-                /*
-                 @需延时判断是否响应页面内的js...
-                 */
                 self.gesState = GESTURE_STATE_START;
                 NSLog(@"touch start!");
                 
@@ -122,12 +136,11 @@ enum
                     self.imgURL = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", ptX, ptY];
                 }
                 if (self.imgURL) {
-                    self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(handleLongTouch) userInfo:nil repeats:NO];
+                    self.timer = [NSTimer scheduledTimerWithTimeInterval:longGestureInterval target:self selector:@selector(handleLongTouch) userInfo:nil repeats:NO];
                 }
             }
             else if ([(NSString *)[components objectAtIndex:2] isEqualToString:@"move"])
             {
-                //**如果touch动作是滑动，则取消hanleLongTouch动作**//
                 self.gesState = GESTURE_STATE_MOVE;
                 NSLog(@"you are move");
             }
@@ -140,6 +153,11 @@ enum
             self.gesState = GESTURE_STATE_END;
             NSLog(@"touch end");
         }
+        
+        if (self.imgURL && self.gesState == GESTURE_STATE_END) {
+            NSLog(@"点的是图片");
+        }
+        
         return NO;
     }
 //    return YES;
@@ -147,14 +165,16 @@ enum
 }
 
 - (void)ad_webViewDidStartLoad:(UIWebView *)webView{
-    
     [self ad_webViewDidStartLoad:webView];
-    
 }
 
 - (void)ad_webViewDidFinishLoad:(UIWebView *)webView{
+    //控制缓存
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"WebKitCacheModelPreferenceKey"];
+
     // 响应touch事件，以及获得点击的坐标位置，用于保存图片
     [webView stringByEvaluatingJavaScriptFromString:kTouchJavaScriptString];
+    
     [self ad_webViewDidFinishLoad:webView];
 }
 
