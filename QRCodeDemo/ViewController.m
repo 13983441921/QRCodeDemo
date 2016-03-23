@@ -16,6 +16,11 @@
 #import "ZXingQRController.h"
 #import "ZBarQRContrller.h"
 
+#import "ADWebviewController.h"
+#import "TOWebViewController+QRCodeHelper.h"
+#import <TOWebViewController/TOWebViewController.h>
+
+
 @interface ViewController ()
 
 @end
@@ -36,7 +41,7 @@
 
 #pragma mark -
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -48,9 +53,11 @@
         cell.textLabel.text = @"ZXing";
         
     }
-    else{
+    else if (indexPath.row == 2){
         cell.textLabel.text = @"ZBar";
-        
+    }
+    else if (indexPath.row == 3){
+        cell.textLabel.text = @"在网页中识别二维码";
     }
 
     return cell;
@@ -78,9 +85,15 @@
         ZXingQRController *zxingQR = [[ZXingQRController alloc] init];
         [self.navigationController pushViewController:zxingQR animated:YES];
     }
-    else{
+    else if (indexPath.row == 2){
         ZBarQRContrller *zbarQR = [[ZBarQRContrller alloc]init];
         [self.navigationController pushViewController:zbarQR animated:YES];
+    }
+    else{
+//        ADWebviewController *zxingQR = [[ADWebviewController alloc] init];
+        TOWebViewController *qrweb = [[TOWebViewController alloc]initWithURLString:@"http://mp.weixin.qq.com/s?__biz=MjM5MjkwMjE3MQ==&mid=402966468&idx=1&sn=95205419dfe233b440382a867ff19696&scene=2&srcid=0322xf25lmMsHjAH8k3sV3Jc&from=timeline&isappinstalled=0#wechat_redirect"];
+        qrweb.navigationButtonsHidden = YES;
+        [self.navigationController pushViewController:qrweb animated:YES];
     }
 
 }

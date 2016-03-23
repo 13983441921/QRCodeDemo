@@ -24,6 +24,7 @@
 		3E5824331CA0F446000F0F17 /* QRCodeTopLeft@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5824231CA0F446000F0F17 /* QRCodeTopLeft@3x.png */; };
 		3E5824341CA0F446000F0F17 /* QRCodeTopRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5824241CA0F446000F0F17 /* QRCodeTopRight@2x.png */; };
 		3E5824351CA0F446000F0F17 /* QRCodeTopRight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5824251CA0F446000F0F17 /* QRCodeTopRight@3x.png */; };
+		3E5824391CA1456B000F0F17 /* ADWebviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E5824381CA1456B000F0F17 /* ADWebviewController.m */; };
 		3E70FAB31C911C2C00542074 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAB21C911C2C00542074 /* main.m */; };
 		3E70FAB61C911C2C00542074 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAB51C911C2C00542074 /* AppDelegate.m */; };
 		3E70FAB91C911C2C00542074 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAB81C911C2C00542074 /* ViewController.m */; };
@@ -34,6 +35,8 @@
 		3E70FAD71C911C2D00542074 /* QRCodeDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAD61C911C2D00542074 /* QRCodeDemoUITests.m */; };
 		3E70FAE91C9124BD00542074 /* AVDeviceQRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAE81C9124BD00542074 /* AVDeviceQRController.m */; };
 		3E70FAEE1C9168AE00542074 /* QRScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E70FAED1C9168AE00542074 /* QRScanView.m */; };
+		3E9008A71CA22B66009E2553 /* TOWebViewController+QRCodeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9008A61CA22B66009E2553 /* TOWebViewController+QRCodeHelper.m */; };
+		3E9008AA1CA2413D009E2553 /* ADRuntimeClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9008A91CA2413D009E2553 /* ADRuntimeClass.m */; };
 		3EC402701C92680C008864A5 /* ZXingQRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC4026F1C92680C008864A5 /* ZXingQRController.m */; };
 		3EC402751C9275FA008864A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC402741C9275FA008864A5 /* Default-568h@2x.png */; };
 		3EC402791C92D45B008864A5 /* ZBarQRContrller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC402781C92D45B008864A5 /* ZBarQRContrller.m */; };
@@ -82,6 +85,8 @@
 		3E5824231CA0F446000F0F17 /* QRCodeTopLeft@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopLeft@3x.png"; sourceTree = "<group>"; };
 		3E5824241CA0F446000F0F17 /* QRCodeTopRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopRight@2x.png"; sourceTree = "<group>"; };
 		3E5824251CA0F446000F0F17 /* QRCodeTopRight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCodeTopRight@3x.png"; sourceTree = "<group>"; };
+		3E5824371CA1456B000F0F17 /* ADWebviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADWebviewController.h; sourceTree = "<group>"; };
+		3E5824381CA1456B000F0F17 /* ADWebviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADWebviewController.m; sourceTree = "<group>"; };
 		3E70FAAE1C911C2C00542074 /* QRCodeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCodeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E70FAB21C911C2C00542074 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3E70FAB41C911C2C00542074 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,6 +107,10 @@
 		3E70FAE81C9124BD00542074 /* AVDeviceQRController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVDeviceQRController.m; sourceTree = "<group>"; };
 		3E70FAEC1C9168AE00542074 /* QRScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRScanView.h; sourceTree = "<group>"; };
 		3E70FAED1C9168AE00542074 /* QRScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScanView.m; sourceTree = "<group>"; };
+		3E9008A51CA22B66009E2553 /* TOWebViewController+QRCodeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TOWebViewController+QRCodeHelper.h"; sourceTree = "<group>"; };
+		3E9008A61CA22B66009E2553 /* TOWebViewController+QRCodeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TOWebViewController+QRCodeHelper.m"; sourceTree = "<group>"; };
+		3E9008A81CA2413D009E2553 /* ADRuntimeClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADRuntimeClass.h; sourceTree = "<group>"; };
+		3E9008A91CA2413D009E2553 /* ADRuntimeClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADRuntimeClass.m; sourceTree = "<group>"; };
 		3EC4026E1C92680C008864A5 /* ZXingQRController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXingQRController.h; sourceTree = "<group>"; };
 		3EC4026F1C92680C008864A5 /* ZXingQRController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXingQRController.m; sourceTree = "<group>"; };
 		3EC402741C9275FA008864A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -166,6 +175,19 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		3E5824361CA14551000F0F17 /* ADWebviewController */ = {
+			isa = PBXGroup;
+			children = (
+				3E5824371CA1456B000F0F17 /* ADWebviewController.h */,
+				3E5824381CA1456B000F0F17 /* ADWebviewController.m */,
+				3E9008A51CA22B66009E2553 /* TOWebViewController+QRCodeHelper.h */,
+				3E9008A61CA22B66009E2553 /* TOWebViewController+QRCodeHelper.m */,
+				3E9008A81CA2413D009E2553 /* ADRuntimeClass.h */,
+				3E9008A91CA2413D009E2553 /* ADRuntimeClass.m */,
+			);
+			path = ADWebviewController;
+			sourceTree = "<group>";
+		};
 		3E70FAA51C911C2C00542074 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +213,7 @@
 		3E70FAB01C911C2C00542074 /* QRCodeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3E5824361CA14551000F0F17 /* ADWebviewController */,
 				3E70FAE41C91247D00542074 /* AVDeviceQR */,
 				3E70FAE51C91247D00542074 /* ZBarQR */,
 				3E70FAE61C91247D00542074 /* ZXingQR */,
@@ -491,8 +514,11 @@
 				3E70FAB61C911C2C00542074 /* AppDelegate.m in Sources */,
 				3E5824271CA0F446000F0F17 /* QRCodeReader.m in Sources */,
 				3E70FAB31C911C2C00542074 /* main.m in Sources */,
+				3E9008AA1CA2413D009E2553 /* ADRuntimeClass.m in Sources */,
+				3E5824391CA1456B000F0F17 /* ADWebviewController.m in Sources */,
 				3E58242A1CA0F446000F0F17 /* QRCodeReaderView.m in Sources */,
 				3E70FAE91C9124BD00542074 /* AVDeviceQRController.m in Sources */,
+				3E9008A71CA22B66009E2553 /* TOWebViewController+QRCodeHelper.m in Sources */,
 				3EC402791C92D45B008864A5 /* ZBarQRContrller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
