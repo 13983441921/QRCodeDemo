@@ -94,8 +94,6 @@ enum
         UIImage* image = [UIImage imageWithData:data];
         NSLog(@"下载完成====%@", imageUrl);
 
-        [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='text';"];
-
         //用获取的图片 去识别二维码
         self.gesState = GESTURE_STATE_END;
         UIActionSheet* sheet ;
@@ -132,6 +130,7 @@ enum
 #pragma mark -
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='text';"];
 
 }
 
