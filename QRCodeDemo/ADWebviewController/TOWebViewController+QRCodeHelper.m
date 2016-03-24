@@ -87,13 +87,15 @@ enum
 
 #pragma mark - private Method
 - (void)handleLongTouch {
-    
+
     NSString *imageUrl = [self.webView stringByEvaluatingJavaScriptFromString:self.imgURL];
     if (imageUrl && self.gesState == GESTURE_STATE_START) {
         NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
         UIImage* image = [UIImage imageWithData:data];
         NSLog(@"下载完成====%@", imageUrl);
-        
+
+        [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='text';"];
+
         //用获取的图片 去识别二维码
         self.gesState = GESTURE_STATE_END;
         UIActionSheet* sheet ;
@@ -119,7 +121,7 @@ enum
     ZXQRCodeMultiReader * reader2 = [[ZXQRCodeMultiReader alloc]init];
 //    NSArray *rs = [reader2 decodeMultiple:bitmap error:&error];
     NSArray *rs =[reader2 decodeMultiple:bitmap hints:hints error:&error];
-    NSLog(@" err = %@",error);
+    NSLog(@"没有找到二维码 err = %@",error);
     for (ZXResult *resul in rs) {
         NSLog(@"识别出二维码的 结果 == %@",resul.text);
         return YES;
@@ -130,7 +132,7 @@ enum
 #pragma mark -
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+
 }
 
 #pragma mark - swizing
@@ -160,6 +162,7 @@ enum
                 self.imgURL = nil;
                 if ([tagName isEqualToString:@"IMG"]) {
                     self.imgURL = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", ptX, ptY];
+                    [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
                 }
                 if (self.imgURL) {
                     self.timer = [NSTimer scheduledTimerWithTimeInterval:longGestureInterval target:self selector:@selector(handleLongTouch) userInfo:nil repeats:NO];
@@ -200,7 +203,7 @@ enum
 
     // 响应touch事件，以及获得点击的坐标位置，用于保存图片
     [webView stringByEvaluatingJavaScriptFromString:kTouchJavaScriptString];
-    
+
     [self ad_webViewDidFinishLoad:webView];
 }
 
