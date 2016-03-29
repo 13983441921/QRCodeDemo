@@ -7,6 +7,7 @@
 //
 
 #import "TOWebViewController+QRCodeHelper.h"
+#import "RNCachingURLProtocol.h"
 #import <objc/runtime.h>
 
 #import <ZXingObjC/ZXingObjC.h>
@@ -29,6 +30,10 @@ document.location=\"myweb:touch:end\";};";
 static NSString *const kGestrueState     = @"keyForGestrueState";
 static NSString *const kImageUrl         = @"keyForImageUrl";
 static NSString *const kLongGestureTimer = @"keyForLongGestureTimer";
+static NSString *const kData             = @"keyForData";
+
+static NSString *const ActionSheetPhotoSave      = @"保存图片";
+static NSString *const ActionSheetQRCodeIndetify = @"识别二维码";
 
 static const NSTimeInterval longGestureInterval = 1.0f;
 
@@ -85,23 +90,49 @@ enum
     return objc_getAssociatedObject(self, &kLongGestureTimer);
 }
 
+- (void)setData:(id)data{
+    objc_setAssociatedObject(self, &kData, data, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)data{
+    return objc_getAssociatedObject(self, &kData);
+}
+
 #pragma mark - private Method
 - (void)handleLongTouch {
 
     NSString *imageUrl = [self.webView stringByEvaluatingJavaScriptFromString:self.imgURL];
     if (imageUrl && self.gesState == GESTURE_STATE_START) {
-        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
-        UIImage* image = [UIImage imageWithData:data];
-        NSLog(@"下载完成====%@", imageUrl);
+        NSData* data = nil;
+        NSString *fileName = [RNCachingURLProtocol cachePathForURLString:imageUrl];
+        
+        RNCachedData *cache = [NSKeyedUnarchiver unarchiveObjectWithFile:fileName];
 
+        if (cache !=nil) {
+            NSLog(@"从缓存读取成功");
+            data = cache.data;
+        }
+        else{
+            NSLog(@"从网络读取");
+            data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
+        }
+        
+        
+        UIImage* image = [UIImage imageWithData:data];
+        if (image == nil) {
+            NSLog(@"图片读取失败");
+            return;
+        }
+        self.data = image;
+        
         //用获取的图片 去识别二维码
         self.gesState = GESTURE_STATE_END;
         UIActionSheet* sheet ;
         if ([self isAvailableQRcodeIn:image]) {
-            sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机",@"识别二维码", nil];
+            sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:ActionSheetPhotoSave,ActionSheetQRCodeIndetify, nil];
         }
         else{
-            sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"保存到手机", nil];
+            sheet = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:ActionSheetPhotoSave, nil];
         }
         sheet.cancelButtonIndex = sheet.numberOfButtons - 1;
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
@@ -131,7 +162,12 @@ enum
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='text';"];
-
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:ActionSheetPhotoSave]) {
+        UIImageWriteToSavedPhotosAlbum(self.data, nil, nil, nil);
+    }
+    else{
+        NSLog(@"处理二维码");
+    }
 }
 
 #pragma mark - swizing
@@ -205,5 +241,7 @@ enum
 
     [self ad_webViewDidFinishLoad:webView];
 }
+
+
 
 @end

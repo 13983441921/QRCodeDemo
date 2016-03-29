@@ -18,4 +18,7 @@
 // 获取 image URL 的js
 @property (nonatomic, strong)NSString *imgURL;
 
+@property (strong, nonatomic) id data;
+
+
 @end

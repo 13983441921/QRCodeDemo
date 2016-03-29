@@ -40,6 +40,11 @@
 		3EC402701C92680C008864A5 /* ZXingQRController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC4026F1C92680C008864A5 /* ZXingQRController.m */; };
 		3EC402751C9275FA008864A5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EC402741C9275FA008864A5 /* Default-568h@2x.png */; };
 		3EC402791C92D45B008864A5 /* ZBarQRContrller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC402781C92D45B008864A5 /* ZBarQRContrller.m */; };
+		3EE418E61CA556840080BB06 /* NSString+Sha1.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE418E31CA556840080BB06 /* NSString+Sha1.m */; };
+		3EE418E71CA556840080BB06 /* RNCachingURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE418E51CA556840080BB06 /* RNCachingURLProtocol.m */; };
+		3EE418EB1CA557610080BB06 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3EE418E81CA557610080BB06 /* README.md */; };
+		3EE418EC1CA557610080BB06 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE418E91CA557610080BB06 /* Reachability.m */; };
+		3EE418EE1CA557FF0080BB06 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EE418ED1CA557FF0080BB06 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +121,14 @@
 		3EC402741C9275FA008864A5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3EC402771C92D45B008864A5 /* ZBarQRContrller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarQRContrller.h; sourceTree = "<group>"; };
 		3EC402781C92D45B008864A5 /* ZBarQRContrller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBarQRContrller.m; sourceTree = "<group>"; };
+		3EE418E21CA556840080BB06 /* NSString+Sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Sha1.h"; sourceTree = "<group>"; };
+		3EE418E31CA556840080BB06 /* NSString+Sha1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Sha1.m"; sourceTree = "<group>"; };
+		3EE418E41CA556840080BB06 /* RNCachingURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCachingURLProtocol.h; sourceTree = "<group>"; };
+		3EE418E51CA556840080BB06 /* RNCachingURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCachingURLProtocol.m; sourceTree = "<group>"; };
+		3EE418E81CA557610080BB06 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3EE418E91CA557610080BB06 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		3EE418EA1CA557610080BB06 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		3EE418ED1CA557FF0080BB06 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		9A9682434C189AA867FF56C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EE418EE1CA557FF0080BB06 /* SystemConfiguration.framework in Frameworks */,
 				13FE5A5F6D03901467871E36 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +192,13 @@
 		3E5824361CA14551000F0F17 /* ADWebviewController */ = {
 			isa = PBXGroup;
 			children = (
+				3EE418E81CA557610080BB06 /* README.md */,
+				3EE418E91CA557610080BB06 /* Reachability.m */,
+				3EE418EA1CA557610080BB06 /* Reachability.h */,
+				3EE418E21CA556840080BB06 /* NSString+Sha1.h */,
+				3EE418E31CA556840080BB06 /* NSString+Sha1.m */,
+				3EE418E41CA556840080BB06 /* RNCachingURLProtocol.h */,
+				3EE418E51CA556840080BB06 /* RNCachingURLProtocol.m */,
 				3E5824371CA1456B000F0F17 /* ADWebviewController.h */,
 				3E5824381CA1456B000F0F17 /* ADWebviewController.m */,
 				3E9008A51CA22B66009E2553 /* TOWebViewController+QRCodeHelper.h */,
@@ -298,6 +319,7 @@
 		9DB92BC46B19EA17D30641E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EE418ED1CA557FF0080BB06 /* SystemConfiguration.framework */,
 				2CB6380B610F580EED79452B /* libPods.a */,
 			);
 			name = Frameworks;
@@ -507,7 +529,9 @@
 				3E70FAB91C911C2C00542074 /* ViewController.m in Sources */,
 				3EC402701C92680C008864A5 /* ZXingQRController.m in Sources */,
 				3E5824281CA0F446000F0F17 /* QRCodeReaderAanimationLineView.m in Sources */,
+				3EE418E61CA556840080BB06 /* NSString+Sha1.m in Sources */,
 				3E70FAEE1C9168AE00542074 /* QRScanView.m in Sources */,
+				3EE418E71CA556840080BB06 /* RNCachingURLProtocol.m in Sources */,
 				3E58242B1CA0F446000F0F17 /* QRCodeReaderViewController.m in Sources */,
 				3E5824261CA0F446000F0F17 /* QRCameraSwitchButton.m in Sources */,
 				3E5824291CA0F446000F0F17 /* QRCodeReaderMaskView.m in Sources */,
@@ -515,6 +539,8 @@
 				3E5824271CA0F446000F0F17 /* QRCodeReader.m in Sources */,
 				3E70FAB31C911C2C00542074 /* main.m in Sources */,
 				3E9008AA1CA2413D009E2553 /* ADRuntimeClass.m in Sources */,
+				3EE418EB1CA557610080BB06 /* README.md in Sources */,
+				3EE418EC1CA557610080BB06 /* Reachability.m in Sources */,
 				3E5824391CA1456B000F0F17 /* ADWebviewController.m in Sources */,
 				3E58242A1CA0F446000F0F17 /* QRCodeReaderView.m in Sources */,
 				3E70FAE91C9124BD00542074 /* AVDeviceQRController.m in Sources */,

@@ -54,10 +54,10 @@
         
     }
     else if (indexPath.row == 2){
-        cell.textLabel.text = @"ZBar";
+        cell.textLabel.text = @"ZBar 官方说明 这里不再举例";
     }
     else if (indexPath.row == 3){
-        cell.textLabel.text = @"在网页中识别二维码";
+        cell.textLabel.text = @"在网页中识别二维码及图片缓存处理";
     }
 
     return cell;
@@ -91,7 +91,8 @@
     }
     else{
 //        ADWebviewController *zxingQR = [[ADWebviewController alloc] init];
-        TOWebViewController *qrweb = [[TOWebViewController alloc]initWithURLString:@"https://mp.weixin.qq.com/s?__biz=MzAxNzI0NTQ4Nw==&mid=403200626&idx=1&sn=287682f40afaa5072d2bd0f76dc97746&scene=1&srcid=0223hbfL6h2ExWv5MrrYC5F8&key=710a5d99946419d9beb9e85995536ce622db30670d2a9ba22982078e8a1a3ae2b85619d1b2a79fa1ddd71f96a5891640&ascene=0&uin=MTgyNTM1NDc1&devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.11+build(15A284)&version=11020201&pass_ticket=Aad1DwoywVkSdAxWsfHh11kCyIn2wlYkQpQmdDbZBtA%3D"];
+        TOWebViewController *qrweb = [[TOWebViewController alloc]initWithURLString:@"https://mp.weixin.qq.com/s?__biz=MzAxNzI0NTQ4Nw==&mid=403200626&idx=1&sn=287682f40afaa5072d2bd0f76dc97746&scene=1&srcid=0223hbfL6h2ExWv5MrrYC5F8&key=710a5d99946419d912c9eecdcdedc802bf3e90d0c5fc57d257877fd67805f873d5d10784a2196a8af03e46fb958d69a1&ascene=0&uin=MTgyNTM1NDc1&devicetype=iMac+MacBookPro12%2C1+OSX+OSX+10.11.4+build(15E65)&version=11020201&pass_ticket=OEtu0yPL5hn25zQEjbXcS%2FK9aXuhLRSHyA4DyjBwwnI%3D"];
+//        TOWebViewController *qrweb = [[TOWebViewController alloc]initWithURLString:@"https://baidu.com"];
         qrweb.navigationButtonsHidden = YES;
         [self.navigationController pushViewController:qrweb animated:YES];
     }
